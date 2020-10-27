@@ -1,0 +1,27 @@
+Let's define the following:
+N(A,A) = number of orders in city A taken drivers that reside in city A
+N(B,B) = number of orders in city B taken drivers that reside in city B
+N(A,B) = number of orders in city A taken drivers that reside in city B
+N(B,A) = number of orders in city B taken drivers that reside in city A
+
+so that:
+N_same  = N(A,A) + N(B,B)
+N_cross = N(A,B) + N(B,A)
+
+The key measure of success would be N_cross >= N_same.
+When it's equal it means there's no preference for drivers to operate in city A or B.
+
+Experiment to measure that metric:
+
+N(A) = number of orders in city A = N(A,A) + N(A,B), and vice versa for city B
+N    = total orders = N(A) + N(B)
+
+I distribute a fraction of N(A)/N orders to drivers A, and vice versa for B. And, I randomly select N for N(A) and N(B). In other words, the probability of an order is given to driver A or B depends on the ratio of order N(A) over total order N.
+
+Then, I count N_same and N_cross. A success means N_cross > N_same.
+To prove the significance, I run t-test between N_same and N_cross.
+If p-value < 2.5% (two-tail test) then N_cross > N_same is real and we achieve our success.
+
+Recommendation to city: use flat daily or monthly fee for toll bridge, rather than pay per cross.
+
+Caveat in that experiment: there could be cancellation by passenger for N_cross because of long waiting time and the order ends up in N_same. If there are data that record this event, then this order need to be removed when making the clean data set.
